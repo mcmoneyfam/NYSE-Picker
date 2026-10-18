@@ -1,0 +1,103 @@
+# Technical scoring engine configuration (Phase 1)
+# All parameters here are read at runtime — nothing in the scoring code
+# is hard-coded per spec section 10 ("Config-driven").
+
+indicator_params:
+  daily:
+    rvol_period: 20
+    rvol_threshold_sig: 1.5
+    rvol_threshold_strong: 2.0
+    volume_ma_period: 20
+    volume_multiplier: 1.5
+    mfi_period: 14
+    mfi_ob: 80
+    mfi_os: 20
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    adx_period: 14
+    adx_strong: 25
+    rsi_period: 14
+    rsi_ob: 70
+    rsi_os: 30
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+    atr_floor: null
+    atr_ceiling: null
+
+  weekly:
+    rvol_period: 20
+    rvol_threshold_sig: 1.5
+    rvol_threshold_strong: 1.5
+    volume_ma_period: 20
+    volume_multiplier: 1.5
+    mfi_period: 14
+    mfi_ob: 80
+    mfi_os: 20
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    adx_period: 14
+    adx_strong: 25
+    rsi_period: 14
+    rsi_ob: 75
+    rsi_os: 25
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+    atr_floor: null
+    atr_ceiling: null
+
+  monthly:
+    rvol_period: 12
+    rvol_threshold_sig: 1.5
+    rvol_threshold_strong: 1.5
+    volume_ma_period: 12
+    volume_multiplier: 1.5
+    mfi_period: 14
+    mfi_ob: 85
+    mfi_os: 15
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    adx_period: 14
+    adx_strong: 25
+    rsi_period: 14
+    rsi_ob: 80
+    rsi_os: 20
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+    atr_floor: null
+    atr_ceiling: null
+
+category_weights:
+  weight_volume: 0.40
+  weight_momentum: 0.25
+  weight_support_resistance: 0.20
+  weight_ob_os: 0.15
+
+sub_weights:
+  volume:
+    rvol: 0.40
+    vol_vs_ma: 0.20
+    mfi: 0.40
+  momentum:
+    macd: 0.40
+    adx: 0.30
+    range_pos: 0.30
+  support_resistance:
+    bb_pctb: 0.60
+    sr_52w: 0.40
+  ob_os:
+    rsi: 0.60
+    mfi: 0.40
+
+atr_multipliers:
+  atr_illiquid_multiplier: 0.80
+  atr_excessive_volatility_multiplier: 0.90
+  atr_normal_multiplier: 1.00
+
+scaling:
+  macd_normalization_k: 4.0

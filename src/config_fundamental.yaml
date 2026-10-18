@@ -1,0 +1,94 @@
+# Fundamental scoring engine configuration (Phase 2)
+# All weights/thresholds/slopes are read at runtime — nothing in
+# fundamental_scoring.py is hard-coded, per spec section 9/10.
+
+fundamental_indicators:
+  pe_ratio:
+    weight: 0.08
+    long_threshold: 12.0
+    short_threshold: 35.0
+    score_long_slope: 5.0
+    score_short_slope: 5.0
+
+  ev_ebitda:
+    weight: 0.10
+    long_threshold: 6.0
+    short_threshold: 18.0
+    score_long_slope: 10.0
+    score_short_slope: 10.0
+
+  fcf_yield:
+    weight: 0.17
+    long_threshold: 6.0    # percent
+    short_threshold: 1.0   # percent
+    score_long_slope: 15.0
+    score_short_slope: 80.0
+
+  roe:
+    weight: 0.09
+    long_threshold: 5.0    # "roe > 5" gate per spec 6.4, distinct from the 18% headline in section 4's table
+    short_threshold: 6.0
+    score_long_slope: 4.0
+    score_short_slope: 20.0
+
+  gross_margin:
+    weight: 0.07
+    long_threshold: 15.0   # gate per spec 6.5
+    short_threshold: 15.0
+    score_long_slope: 2.0
+    score_short_slope: 5.0
+
+  ocf_ni:
+    weight: 0.08
+    long_threshold: 0.7
+    short_threshold: 1.10
+    score_long_slope: 200.0
+    score_short_slope: 200.0
+
+  revenue_growth_yoy:
+    weight: 0.06
+    long_threshold: 0.0
+    short_threshold: 0.0
+    score_long_slope: 3.0
+    score_short_slope: 3.0
+
+  net_debt_ebitda:
+    weight: 0.08
+    long_threshold: 5.0    # gate per spec 6.8
+    short_threshold: 5.0
+    score_long_slope: 20.0
+    score_short_slope: 10.0
+
+  short_percent_float:
+    weight: 0.18
+    long_threshold: 10.0   # gate per spec 6.9
+    short_threshold: 5.0
+    score_long_slope: 5.0
+    score_short_slope: 20.0
+
+  buyback_yield:
+    weight: 0.05
+    long_threshold: 0.0
+    short_threshold: 0.0
+    score_long_slope: 40.0
+    score_short_slope: 40.0
+
+  roa:
+    weight: 0.04
+    long_threshold: 2.0
+    short_threshold: 2.0
+    score_long_slope: 10.0
+    score_short_slope: 50.0
+
+scoring:
+  quality_gate_enabled: false
+  quality_gate_metric: ocf_ni
+  quality_gate_threshold: 0.5
+  quality_gate_multiplier: 0.8
+
+# Missing-field handling: 'zero' scores a missing indicator as 0 (spec
+# section 9 default) rather than 'neutral' (50). Configurable per section 9.
+missing_data_policy: zero
+
+# Cache TTL for fetched fundamental data (EDGAR + yfinance), in hours.
+cache_ttl_hours: 24
